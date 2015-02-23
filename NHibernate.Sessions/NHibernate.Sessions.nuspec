@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>Shayne van Asperen</authors>
+    <owners>Shayne van Asperen</owners>
+		<licenseUrl>https://github.com/shaynevanasperen/NHibernate.Sessions/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shaynevanasperen/NHibernate.Sessions</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/shaynevanasperen/NHibernate.Sessions/master/NHibernate.Sessions.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of utility classes for easily configuring and managing multiple session factories</description>
+		<language>en-US</language>
+    <tags>NHibernate</tags>
+  </metadata>
+</package>

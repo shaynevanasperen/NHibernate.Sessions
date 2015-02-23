@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.Sessions", "NHibernate.Sessions\NHibernate.Sessions.csproj", "{C215518D-4D15-432B-8FAE-22D78081D8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.Sessions.Tests", "NHibernate.Sessions.Tests\NHibernate.Sessions.Tests.csproj", "{DC0A94FE-FF04-4FD7-95E0-73241E5BDF6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{505A63E8-FF4F-4F39-A631-2F3C5A0B5D2D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notice", "notice", "{2B7AC76D-5735-474E-B3EE-7C156FFBED6B}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C215518D-4D15-432B-8FAE-22D78081D8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C215518D-4D15-432B-8FAE-22D78081D8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C215518D-4D15-432B-8FAE-22D78081D8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C215518D-4D15-432B-8FAE-22D78081D8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC0A94FE-FF04-4FD7-95E0-73241E5BDF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC0A94FE-FF04-4FD7-95E0-73241E5BDF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC0A94FE-FF04-4FD7-95E0-73241E5BDF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC0A94FE-FF04-4FD7-95E0-73241E5BDF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

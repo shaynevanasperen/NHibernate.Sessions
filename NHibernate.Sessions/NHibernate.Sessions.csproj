@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C215518D-4D15-432B-8FAE-22D78081D8E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NHibernate.Sessions</RootNamespace>
+    <AssemblyName>NHibernate.Sessions</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\ConfigurationCacheNegatedSetting.cs">
+      <DependentUpon>Configure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\Configure.cs" />
+    <Compile Include="Configuration\DependentFilePaths.cs" />
+    <Compile Include="Configuration\FileConfigurationCache.cs" />
+    <Compile Include="Configuration\IBeginConfiguration.cs" />
+    <Compile Include="Configuration\ICompleteConfiguration.cs">
+      <DependentUpon>IPartialConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\IConfigurationCache.cs" />
+    <Compile Include="Configuration\IPartialConfiguration.cs">
+      <DependentUpon>IBeginConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SessionFactoryRegistration.cs" />
+    <Compile Include="Configuration\ThreadedInitialization.cs" />
+    <Compile Include="Configuration\TypeExtension.cs" />
+    <Compile Include="ISessionFactoryEntry.cs" />
+    <Compile Include="ISessionManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quarks\ApplicationAssembly.cs" />
+    <Compile Include="Quarks\AttributeHelper.cs" />
+    <Compile Include="Quarks\Disposable.cs" />
+    <Compile Include="Quarks\FileStore.cs" />
+    <Compile Include="Quarks\NHibernate\ISessionFactoryExtensions\GetCurrentOrNewSession.cs" />
+    <Compile Include="Quarks\NHibernate\ISessionFactoryExtensions\HasCurrentSessionContext.cs" />
+    <Compile Include="SessionFactoryEntry.cs">
+      <DependentUpon>ISessionFactoryEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SessionFactoryInitializationMode.cs" />
+    <Compile Include="SessionFactoryKeyAttribute.cs" />
+    <Compile Include="SessionManager.cs">
+      <DependentUpon>ISessionManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSessionContextModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\packages\PowerTasks.Plugins.Clean.1.0.0-beta-1\scripts\Clean.ps1">
+      <Link>.Tasks\Clean.ps1</Link>
+    </None>
+    <None Include="..\packages\PowerTasks.Plugins.Compile.1.0.0-beta-1\scripts\Compile.ps1">
+      <Link>.Tasks\Compile.ps1</Link>
+    </None>
+    <None Include="..\packages\PowerTasks.Plugins.Pack.1.0.0-beta-1\scripts\Pack.ps1">
+      <Link>.Tasks\Pack.ps1</Link>
+    </None>
+    <None Include="..\packages\PowerTasks.Plugins.Push.1.0.0-beta-1\scripts\Push.ps1">
+      <Link>.Tasks\Push.ps1</Link>
+    </None>
+    <None Include="..\packages\PowerTasks.Plugins.Test.1.0.0-beta-1\scripts\Test.ps1">
+      <Link>.Tasks\Test.ps1</Link>
+    </None>
+    <None Include="..\packages\PowerTasks.Plugins.Version.1.0.0-beta-1\scripts\Version.ps1">
+      <Link>.Tasks\Version.ps1</Link>
+    </None>
+    <None Include=".Tasks.ps1" />
+    <None Include="NHibernate.Sessions.nuspec" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\packages\PowerTasks.Plugins.Test.1.0.0-beta-1\scripts\specflow_report_template.html">
+      <Link>.Tasks\specflow_report_template.html</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
