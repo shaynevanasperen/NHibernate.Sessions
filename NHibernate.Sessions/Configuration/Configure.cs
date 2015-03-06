@@ -22,7 +22,7 @@ namespace NHibernate.Sessions.Configuration
 
 		Configure() { }
 
-		public IPartialConfiguration Using(Func<string, Cfg.Configuration> configuration)
+		public IPartialConfiguration UsingConfigurationFactory(Func<string, Cfg.Configuration> configuration)
 		{
 			_currentSessionFactoryRegistration.Configuration = configuration;
 			return this;

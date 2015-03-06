@@ -4,6 +4,6 @@ namespace NHibernate.Sessions.Configuration
 {
 	public interface IBeginConfiguration
 	{
-		IPartialConfiguration Using(Func<string, Cfg.Configuration> configuration);
+		IPartialConfiguration UsingConfigurationFactory(Func<string, Cfg.Configuration> configuration);
 	}
 }
