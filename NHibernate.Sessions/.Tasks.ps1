@@ -1,6 +1,6 @@
 param(
 	$prereleaseVersion = (property prereleaseVersion ""),
-	$failOnDuplicatePackage = (property failOnDuplicatePackage $false)
+	$ignoreNugetPushErrors = (property ignoreNugetPushErrors "The underlying connection was closed: An unexpected error occurred on a receive.") #SymbolSource duplicate package error
 )
 
 Include-PluginScripts
