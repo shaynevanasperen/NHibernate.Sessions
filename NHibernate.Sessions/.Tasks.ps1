@@ -1,5 +1,6 @@
 param(
-	$prereleaseVersion = (property prereleaseVersion "")
+	$prereleaseVersion = (property prereleaseVersion ""),
+	$failOnDuplicatePackage = (property failOnDuplicatePackage $false)
 )
 
 Include-PluginScripts
