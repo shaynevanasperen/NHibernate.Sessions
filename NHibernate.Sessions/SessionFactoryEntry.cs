@@ -58,7 +58,7 @@ namespace NHibernate.Sessions
 
 		void initializeSessionFactoryInAnotherThread(Action<Exception> onSessionFactoryThreadedInitializationException)
 		{
-			SessionFactoryInitializationTask = Task.Factory.StartNew(() =>
+			SessionFactoryInitializationTask = Task.Run(() =>
 			{
 				try
 				{
