@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Machine.Fakes;
 using Machine.Specifications;
 using NHibernate.Context;
@@ -13,6 +15,12 @@ namespace NHibernate.Sessions.Tests
 		It should_defer_initialization_of_the_session_factory_until_first_use = () =>
 			sessionFactoryInitializationWasDeferred.ShouldBeTrue();
 
+		It should_not_allow_the_initialization_to_run_more_than_once = () =>
+		{
+			Parallel.Invoke(Enumerable.Repeat<System.Action>(() => initializedSessionFactory = sessionFactoryEntry.SessionFactory, 10).ToArray());
+			sessionFactoryInitializationCount.ShouldEqual(1);
+		};
+
 		Because of = () =>
 			initializedSessionFactory = sessionFactoryEntry.SessionFactory;
 
@@ -21,11 +29,12 @@ namespace NHibernate.Sessions.Tests
 
 		static ISessionFactory getSessionFactory()
 		{
-			var sessionFactory = An<ISessionFactory>();
+			Interlocked.Increment(ref sessionFactoryInitializationCount);
 			sessionFactoryInitializationWasDeferred = sessionFactoryEntry != null;
-			return sessionFactory;
+			return An<ISessionFactory>();
 		}
 
+		static int sessionFactoryInitializationCount;
 		static SessionFactoryEntry sessionFactoryEntry;
 		static bool sessionFactoryInitializationWasDeferred;
 		static ISessionFactory initializedSessionFactory;
@@ -59,34 +68,32 @@ namespace NHibernate.Sessions.Tests
 	class When_configured_for_threaded_initialization : WithFakes
 	{
 		It should_initialize_the_session_factory_in_another_thread = () =>
-		{
-			threadedInitializationStarted.ShouldBeTrue();
-			initializedSessionFactory.ShouldBeNull();
-		};
+			sessionFactoryInitializationThreadId.ShouldNotEqual(Thread.CurrentThread.ManagedThreadId);
 
 		It should_not_allow_the_initialization_to_run_more_than_once = () =>
 		{
-			initializedSessionFactory = sessionFactoryEntry.SessionFactory;
-			multipleInitializationsAttempted.ShouldBeFalse();
+			Parallel.Invoke(Enumerable.Repeat<System.Action>(() => initializedSessionFactory = sessionFactoryEntry.SessionFactory, 10).ToArray());
+			sessionFactoryInitializationCount.ShouldEqual(1);
 		};
 
 		Because of = () =>
-			Thread.Sleep(10);
-
-		Establish context = () =>
+		{
 			sessionFactoryEntry = new SessionFactoryEntry("Key", getSessionFactory, SessionFactoryInitializationMode.Threaded);
+			waitHandle.WaitOne();
+		};
 
 		static ISessionFactory getSessionFactory()
 		{
-			multipleInitializationsAttempted = threadedInitializationStarted;
-			threadedInitializationStarted = true;
-			Thread.Sleep(20);
+			sessionFactoryInitializationThreadId = Thread.CurrentThread.ManagedThreadId;
+			waitHandle.Set();
+			Interlocked.Increment(ref sessionFactoryInitializationCount);
 			return initializedSessionFactory = An<ISessionFactory>();
 		}
 
+		static int sessionFactoryInitializationCount;
+		static int sessionFactoryInitializationThreadId;
+		static EventWaitHandle waitHandle = new AutoResetEvent(false);
 		static SessionFactoryEntry sessionFactoryEntry;
-		static bool threadedInitializationStarted;
-		static bool multipleInitializationsAttempted;
 		static ISessionFactory initializedSessionFactory;
 	}
 
