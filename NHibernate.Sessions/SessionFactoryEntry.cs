@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NHibernate;
 using Quarks.NHibernate.ISessionFactoryExtensions;
 using Remotion.Linq.Utilities;
 

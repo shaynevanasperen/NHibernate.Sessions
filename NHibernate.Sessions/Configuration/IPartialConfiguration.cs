@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using NHibernate;
 
 namespace NHibernate.Sessions.Configuration
 {
