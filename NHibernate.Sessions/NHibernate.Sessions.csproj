@@ -64,8 +64,11 @@
     <Compile Include="Configuration\SessionFactoryRegistration.cs" />
     <Compile Include="Configuration\ThreadedInitialization.cs" />
     <Compile Include="Configuration\TypeExtension.cs" />
+    <Compile Include="IAmbientSessionScope.cs" />
     <Compile Include="ISessionFactoryEntry.cs" />
-    <Compile Include="ISessionManager.cs" />
+    <Compile Include="ISessionManager.cs">
+      <DependentUpon>IAmbientSessionScope.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quarks\ApplicationAssembly.cs" />
     <Compile Include="Quarks\AttributeHelper.cs" />
