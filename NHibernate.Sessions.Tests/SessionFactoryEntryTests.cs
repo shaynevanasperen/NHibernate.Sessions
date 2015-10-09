@@ -54,9 +54,8 @@ namespace NHibernate.Sessions.Tests
 
 		static ISessionFactory getSessionFactory()
 		{
-			var sessionFactory = An<ISessionFactory>();
 			sessionFactoryInitializationWasDeferred = sessionFactoryEntry != null;
-			return sessionFactory;
+			return An<ISessionFactory>();
 		}
 
 		static SessionFactoryEntry sessionFactoryEntry;
