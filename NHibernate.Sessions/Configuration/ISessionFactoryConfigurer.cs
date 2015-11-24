@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Threading;
 using NHibernate.Context;
 
 namespace NHibernate.Sessions.Configuration
@@ -16,8 +15,7 @@ namespace NHibernate.Sessions.Configuration
 
 		T WithEagerInitialization();
 		T WithLazyInitialization();
-		T WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null,
-			Action<Thread> onBackgroundInitializationStarted = null, Action<Thread> onBackgroundInitializationCompleted = null);
+		T WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null);
 
 		T WithInitializedCallback(Action<ISessionFactory> onInitialized);
 		T WithSessionOpenedCallback(Action<ISession> onSessionOpened);

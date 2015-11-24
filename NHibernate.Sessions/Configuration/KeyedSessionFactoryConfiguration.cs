@@ -29,8 +29,6 @@ namespace NHibernate.Sessions.Configuration
 				CacheDependencyFilePaths = CacheDependencyFilePaths,
 				InitializationMode = InitializationMode,
 				OnBackgroundInitializationException = OnBackgroundInitializationException,
-				OnBackgroundInitializationStarted = OnBackgroundInitializationStarted,
-				OnBackgroundInitializationCompleted = OnBackgroundInitializationCompleted,
 				OnInitialized = OnInitialized,
 				OnSessionOpened = OnSessionOpened
 			};

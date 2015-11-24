@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Threading;
 
 namespace NHibernate.Sessions.Configuration
 {
@@ -64,10 +63,9 @@ namespace NHibernate.Sessions.Configuration
 			return this;
 		}
 
-		public virtual ISingleSessionFactoryConfigurer WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null,
-			Action<Thread> onBackgroundInitializationStarted = null, Action<Thread> onBackgroundInitializationCompleted = null)
+		public virtual ISingleSessionFactoryConfigurer WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null)
 		{
-			_sessionFactoryConfiguration.WithBackgroundInitialization(onBackgroundInitializationException, onBackgroundInitializationStarted, onBackgroundInitializationCompleted);
+			_sessionFactoryConfiguration.WithBackgroundInitialization(onBackgroundInitializationException);
 			return this;
 		}
 

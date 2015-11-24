@@ -99,12 +99,6 @@ namespace NHibernate.Sessions.Tests
 			initializationThreadIsBackground.ShouldBeTrue();
 		};
 
-		It should_invoke_the_on_background_initialization_started_callback_before_initialization = () =>
-			onStartedCallbackInvokedBeforeInitialization.ShouldBeTrue();
-
-		It should_invoke_the_on_background_initialization_completed_callback_after_initialization = () =>
-			onCompletedCallbackInvokedAfterInitialization.ShouldBeTrue();
-
 		It should_not_allow_the_initialization_to_run_more_than_once = () =>
 		{
 			Parallel.Invoke(Enumerable.Repeat<System.Action>(() => initializedSessionFactory = Subject.Value, 10).ToArray());
@@ -112,26 +106,13 @@ namespace NHibernate.Sessions.Tests
 		};
 
 		Because of = () =>
-			waitHandle.WaitOne();
+			Subject.ValueCreationTask.Wait();
 
 		Establish context = () =>
 		{
 			The<ISessionFactoryInitializion>().WhenToldTo(x => x.InitializationMode).Return(SessionFactoryInitializationMode.Background);
-			The<ISessionFactoryInitializion>().WhenToldTo(x => x.OnBackgroundInitializationStarted).Return(onBackgroundInitializationStarted);
-			The<ISessionFactoryInitializion>().WhenToldTo(x => x.OnBackgroundInitializationCompleted).Return(onBackgroundInitializationCompleted);
 			The<ISessionFactoryInitializion>().WhenToldTo(x => x.ConfigurationProvider).Return((Func<Cfg.Configuration>)getConfiguration);
 		};
-
-		static void onBackgroundInitializationStarted(Thread thread)
-		{
-			onStartedCallbackInvokedBeforeInitialization = initializationThreadId == 0 && !Subject.IsValueCreated;
-		}
-
-		static void onBackgroundInitializationCompleted(Thread thread)
-		{
-			onCompletedCallbackInvokedAfterInitialization = initializationThreadId != 0 && Subject.IsValueCreated;
-			waitHandle.Set();
-		}
 
 		static Cfg.Configuration getConfiguration()
 		{
@@ -141,12 +122,9 @@ namespace NHibernate.Sessions.Tests
 			return Fluently.Configure().Database(SQLiteConfiguration.Standard.InMemory()).BuildConfiguration();
 		}
 
-		static bool onStartedCallbackInvokedBeforeInitialization;
-		static bool onCompletedCallbackInvokedAfterInitialization;
 		static int initializationCount;
 		static int initializationThreadId;
 		static bool initializationThreadIsBackground;
-		static EventWaitHandle waitHandle = new AutoResetEvent(false);
 		static ISessionFactory initializedSessionFactory;
 	}
 

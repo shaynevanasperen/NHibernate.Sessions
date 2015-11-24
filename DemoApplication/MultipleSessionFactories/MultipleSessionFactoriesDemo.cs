@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading;
 using DemoApplication.MultipleSessionFactories.Entities;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
@@ -24,7 +23,6 @@ namespace DemoApplication.MultipleSessionFactories
 			new SchemaExport(getConfiguration(typeof(TodoItems).Name)).Execute(true, true, false);
 			new SchemaExport(getConfiguration(typeof(Users).Name)).Execute(true, true, false);
 
-			Console.WriteLine("Configuring an {0} on thread {1}", typeof(IMultiSessionFactoryConfigurer).Name, Thread.CurrentThread.ManagedThreadId);
 			var multiSessionFactoryConfigurer = ConfigureNHibernate
 				.ForMultipleSessionFactories(x =>
 				{
@@ -32,9 +30,7 @@ namespace DemoApplication.MultipleSessionFactories
 					return getConfiguration(x);
 				})
 				.WithCachedConfiguration(Assembly.GetExecutingAssembly())
-				.WithBackgroundInitialization(BackgroundInitialization.IgnoreException,
-					x => Console.WriteLine("Background Initialization started on thread {0}", x.ManagedThreadId),
-					x => Console.WriteLine("Background Initialization completed on thread {0}", x.ManagedThreadId))
+				.WithBackgroundInitialization()
 				.WithInitializedCallback(x => Console.WriteLine("{0} initialized", x.GetType().Name))
 				.WithSessionOpenedCallback(x => Console.WriteLine("{0} opened", x.GetType().Name))
 				.RegisterSessionFactory<TodoItems>()

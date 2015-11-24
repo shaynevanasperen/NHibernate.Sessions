@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using NHibernate.Sessions.Configuration;
 
@@ -80,11 +79,7 @@ namespace NHibernate.Sessions
 			{
 				try
 				{
-					if (sessionFactoryInitializion.OnBackgroundInitializationStarted != null)
-						sessionFactoryInitializion.OnBackgroundInitializationStarted(Thread.CurrentThread);
 					Value = _sessionFactory.Value;
-					if (sessionFactoryInitializion.OnBackgroundInitializationCompleted != null)
-						sessionFactoryInitializion.OnBackgroundInitializationCompleted(Thread.CurrentThread);
 				}
 				catch (Exception exception)
 				{

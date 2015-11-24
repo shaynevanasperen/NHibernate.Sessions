@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Threading;
 
 namespace NHibernate.Sessions.Configuration
 {
@@ -14,8 +13,6 @@ namespace NHibernate.Sessions.Configuration
 
 		public virtual SessionFactoryInitializationMode InitializationMode { get; protected set; }
 		public virtual Action<Exception> OnBackgroundInitializationException { get; protected set; }
-		public virtual Action<Thread> OnBackgroundInitializationStarted { get; protected set; }
-		public virtual Action<Thread> OnBackgroundInitializationCompleted { get; protected set; }
 		public virtual Action<ISessionFactory> OnInitialized { get; protected set; }
 
 		public virtual Action<ISession> OnSessionOpened { get; protected set; }
@@ -64,13 +61,10 @@ namespace NHibernate.Sessions.Configuration
 			InitializationMode = SessionFactoryInitializationMode.Lazy;
 		}
 
-		public virtual void WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null,
-			Action<Thread> onBackgroundInitializationStarted = null, Action<Thread> onBackgroundInitializationCompleted = null)
+		public virtual void WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null)
 		{
 			InitializationMode = SessionFactoryInitializationMode.Background;
 			OnBackgroundInitializationException = onBackgroundInitializationException;
-			OnBackgroundInitializationStarted = onBackgroundInitializationStarted;
-			OnBackgroundInitializationCompleted = onBackgroundInitializationCompleted;
 		}
 
 		public virtual void WithInitializedCallback(Action<ISessionFactory> onInitialized)

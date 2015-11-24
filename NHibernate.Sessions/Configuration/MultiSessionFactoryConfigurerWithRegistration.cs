@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 
 namespace NHibernate.Sessions.Configuration
 {
@@ -73,10 +72,9 @@ namespace NHibernate.Sessions.Configuration
 			return this;
 		}
 
-		public virtual IMultiSessionFactoryConfigurerWithRegistration WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null,
-			Action<Thread> onBackgroundInitializationStarted = null, Action<Thread> onBackgroundInitializationCompleted = null)
+		public virtual IMultiSessionFactoryConfigurerWithRegistration WithBackgroundInitialization(Action<Exception> onBackgroundInitializationException = null)
 		{
-			_sessionFactoryConfiguration.WithBackgroundInitialization(onBackgroundInitializationException, onBackgroundInitializationStarted, onBackgroundInitializationCompleted);
+			_sessionFactoryConfiguration.WithBackgroundInitialization(onBackgroundInitializationException);
 			return this;
 		}
 
