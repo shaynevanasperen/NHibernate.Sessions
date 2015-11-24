@@ -34,12 +34,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,50 +47,74 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationCacheNegatedSetting.cs">
-      <DependentUpon>Configure.cs</DependentUpon>
+    <Compile Include="Configuration\ConfigurationExtension.cs" />
+    <Compile Include="ICurrentSessionContextBinder.cs" />
+    <Compile Include="Configuration\KeyedSessionFactoryConfiguration.cs">
+      <DependentUpon>SessionFactoryConfiguration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\Configure.cs" />
+    <Compile Include="Configuration\KeylessSessionFactoryConfiguration.cs">
+      <DependentUpon>SessionFactoryConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\MultiSessionFactoryConfigurer.cs">
+      <DependentUpon>ISessionFactoryConfigurer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\MultiSessionFactoryConfigurerWithRegistration.cs">
+      <DependentUpon>ISessionFactoryConfigurer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SingleSessionFactoryConfigurer.cs">
+      <DependentUpon>ISessionFactoryConfigurer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentSessionContextBinder.cs">
+      <DependentUpon>ICurrentSessionContextBinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ILazySession.cs" />
+    <Compile Include="ILazySessionFactory.cs" />
+    <Compile Include="ISessionFactoryContext.cs" />
+    <Compile Include="ISessionContext.cs" />
+    <Compile Include="ISessionFactoryInitializion.cs" />
+    <Compile Include="Configuration\ISessionFactoryConfigurer.cs" />
+    <Compile Include="Configuration\ConfigureNHibernate.cs" />
     <Compile Include="Configuration\DependentFilePaths.cs" />
-    <Compile Include="Configuration\FileConfigurationCache.cs" />
-    <Compile Include="Configuration\IBeginConfiguration.cs" />
-    <Compile Include="Configuration\ICompleteConfiguration.cs">
-      <DependentUpon>IPartialConfiguration.cs</DependentUpon>
+    <Compile Include="Configuration\FileConfigurationCache.cs">
+      <DependentUpon>IConfigurationCache.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\IConfigurationCache.cs" />
-    <Compile Include="Configuration\IPartialConfiguration.cs">
-      <DependentUpon>IBeginConfiguration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\SessionFactoryRegistration.cs" />
-    <Compile Include="Configuration\ThreadedInitialization.cs" />
+    <Compile Include="Configuration\SessionFactoryConfiguration.cs" />
+    <Compile Include="Configuration\BackgroundInitialization.cs" />
     <Compile Include="Configuration\TypeExtension.cs" />
-    <Compile Include="IAmbientSessionScope.cs" />
-    <Compile Include="ISessionFactoryEntry.cs" />
-    <Compile Include="ISessionManager.cs">
-      <DependentUpon>IAmbientSessionScope.cs</DependentUpon>
+    <Compile Include="ILazySessions.cs" />
+    <Compile Include="ILazySessionFactories.cs" />
+    <Compile Include="LazySession.cs">
+      <DependentUpon>ILazySession.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LazySessionFactory.cs">
+      <DependentUpon>ILazySessionFactory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LazySessions.cs">
+      <DependentUpon>ILazySessions.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quarks\ApplicationAssembly.cs" />
-    <Compile Include="Quarks\AttributeHelper.cs" />
-    <Compile Include="Quarks\Disposable.cs" />
     <Compile Include="Quarks\FileStore.cs" />
-    <Compile Include="Quarks\NHibernate\ISessionFactoryExtensions\GetCurrentOrNewSession.cs" />
-    <Compile Include="Quarks\NHibernate\ISessionFactoryExtensions\HasCurrentSessionContext.cs" />
-    <Compile Include="SessionFactoryEntry.cs">
-      <DependentUpon>ISessionFactoryEntry.cs</DependentUpon>
+    <Compile Include="SessionContext.cs">
+      <DependentUpon>ISessionContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="SessionFactoryContext.cs">
+      <DependentUpon>ISessionFactoryContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SessionFactoryExtension.cs" />
     <Compile Include="SessionFactoryInitializationMode.cs" />
-    <Compile Include="SessionFactoryKeyAttribute.cs" />
-    <Compile Include="SessionManager.cs">
-      <DependentUpon>ISessionManager.cs</DependentUpon>
+    <Compile Include="LazySessionFactories.cs">
+      <DependentUpon>ILazySessionFactories.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebSessionContextModule.cs" />
+    <Compile Include="ThreadLocalSessionContextBinder.cs">
+      <DependentUpon>ICurrentSessionContextBinder.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\packages\PowerTasks.Plugins.Clean.2.0.0\scripts\Clean.ps1">
       <Link>.Tasks\Clean.ps1</Link>
     </None>
-    <None Include="..\packages\PowerTasks.Plugins.Compile.2.0.0\scripts\Compile.ps1">
+    <None Include="..\packages\PowerTasks.Plugins.Compile.2.0.1\scripts\Compile.ps1">
       <Link>.Tasks\Compile.ps1</Link>
     </None>
     <None Include="..\packages\PowerTasks.Plugins.Pack.2.0.0\scripts\Pack.ps1">
@@ -102,7 +126,7 @@
     <None Include="..\packages\PowerTasks.Plugins.Test.2.0.0\scripts\Test.ps1">
       <Link>.Tasks\Test.ps1</Link>
     </None>
-    <None Include="..\packages\PowerTasks.Plugins.Version.2.0.0\scripts\Version.ps1">
+    <None Include="..\packages\PowerTasks.Plugins.Version.2.1.0\scripts\Version.ps1">
       <Link>.Tasks\Version.ps1</Link>
     </None>
     <None Include=".Tasks.ps1" />

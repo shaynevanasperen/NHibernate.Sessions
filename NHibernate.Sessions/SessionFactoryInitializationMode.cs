@@ -4,6 +4,6 @@ namespace NHibernate.Sessions
 	{
 		Eager,
 		Lazy,
-		Threaded
+		Background
 	}
 }

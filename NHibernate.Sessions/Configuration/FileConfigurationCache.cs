@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NHibernate.Cfg;
 using NHibernate.Util;
 using Quarks;
 using Remotion.Linq.Utilities;
@@ -11,8 +10,8 @@ using Remotion.Linq.Utilities;
 namespace NHibernate.Sessions.Configuration
 {
 	/// <summary>
-	/// File cache implementation of IConfigurationCache.  Saves and loads a
-	/// serialized version of <see cref="Configuration"/> to a temporary file location.
+	/// File cache implementation of IConfigurationCache. Saves and loads a serialized
+	/// version of <see cref="Configuration"/> to a temporary file location.
 	/// </summary>
 	/// <remarks>Serializing a <see cref="Configuration"/> object requires that all components
 	/// that make up the Configuration object be Serializable. This includes any custom NHibernate
@@ -20,7 +19,7 @@ namespace NHibernate.Sessions.Configuration
 	public class FileConfigurationCache : IConfigurationCache
 	{
 		/// <summary>
-		/// List of files that the cached configuration is dependent on.  If any of these
+		/// List of files that the cached configuration is dependent on. If any of these
 		/// files are newer than the cache file then the cache file could be out of date.
 		/// </summary>
 		readonly List<string> _dependentFilePaths = new List<string>();
@@ -28,13 +27,10 @@ namespace NHibernate.Sessions.Configuration
 		/// <summary>
 		/// Initializes new instance of the FileConfigurationCache
 		/// </summary>
-		public FileConfigurationCache()
-		{
-		}
+		public FileConfigurationCache() { }
 
 		/// <summary>
-		/// Initializes new instance of the FileConfigurationCache using the
-		/// given dependentFilePaths parameter.
+		/// Initializes new instance of the FileConfigurationCache using the given dependentFilePaths parameter.
 		/// </summary>
 		/// <param name="dependentFilePaths">List of files that the cached configuration is dependent upon.</param>
 		public FileConfigurationCache(params string[] dependentFilePaths)
@@ -50,7 +46,7 @@ namespace NHibernate.Sessions.Configuration
 		/// <param name="configKey">Key value to provide a unique name to the cached <see cref="Configuration"/>.</param>
 		/// <param name="dependentFilePaths">List of files that the cached configuration is dependent upon.</param>
 		/// <returns>If an up to date cached object is available, a <see cref="Configuration"/> object, otherwise null.</returns>
-		public NHibernate.Cfg.Configuration LoadConfiguration(string configKey, params string[] dependentFilePaths)
+		public virtual Cfg.Configuration LoadConfiguration(string configKey, params string[] dependentFilePaths)
 		{
 			if (string.IsNullOrWhiteSpace(configKey)) throw new ArgumentEmptyException("configKey");
 
@@ -58,7 +54,7 @@ namespace NHibernate.Sessions.Configuration
 			if (dependentFilePaths != null)
 				appendToDependentFilePaths(dependentFilePaths);
 			if (IsCachedConfigCurrent(cachePath))
-				return FileStore.Load<NHibernate.Cfg.Configuration>(cachePath);
+				return FileStore.Load<Cfg.Configuration>(cachePath);
 
 			return null;
 		}
@@ -68,7 +64,7 @@ namespace NHibernate.Sessions.Configuration
 		/// </summary>
 		/// <param name="configKey">Key value to provide a unique name to the cached <see cref="Configuration"/>.</param>
 		/// <param name="config">Configuration object to save.</param>
-		public void SaveConfiguration(string configKey, NHibernate.Cfg.Configuration config)
+		public virtual void SaveConfiguration(string configKey, Cfg.Configuration config)
 		{
 			if (string.IsNullOrWhiteSpace(configKey)) throw new ArgumentEmptyException("configKey");
 			if (config == null) throw new ArgumentNullException("config");
@@ -79,7 +75,7 @@ namespace NHibernate.Sessions.Configuration
 		}
 
 		/// <summary>
-		/// Tests if an existing cached configuration file is out of date or not.
+		/// Tests whether or not an existing cached configuration file is out of date.
 		/// </summary>
 		/// <param name="cachePath">Location of the cached</param>
 		/// <returns>False if the cached config file is out of date, otherwise true.</returns>
@@ -106,8 +102,7 @@ namespace NHibernate.Sessions.Configuration
 		/// </summary>
 		/// <param name="configKey">Key value to provide a unique name to the cached <see cref="Configuration"/>.</param>
 		/// <returns>Full file path.</returns>
-		/// <remarks>The hash value is intended to avoid the file from conflicting
-		/// with other applications also using this cache feature.</remarks>
+		/// <remarks>The hash value is intended to avoid the file from conflicting with other applications also using this cache feature.</remarks>
 		protected virtual string CachedConfigPath(string configKey)
 		{
 			var fileName = string.Format("{0}-{1}.bin", configKey, Assembly.GetCallingAssembly().CodeBase.GetHashCode());
@@ -125,8 +120,7 @@ namespace NHibernate.Sessions.Configuration
 		}
 
 		/// <summary>
-		/// Tests if the file or assembly name exists either in the application's bin folder
-		/// or elsewhere.
+		/// Tests if the file or assembly name exists either in the application's bin folder or elsewhere.
 		/// </summary>
 		/// <param name="path">Path or file name to test for existance.</param>
 		/// <returns>Full path of the file.</returns>
@@ -140,7 +134,7 @@ namespace NHibernate.Sessions.Configuration
 			var codeBase = Assembly.GetExecutingAssembly().CodeBase;
 			var uri = new UriBuilder(codeBase);
 			var uriPath = Uri.UnescapeDataString(uri.Path);
-			var codeLocation = Path.GetDirectoryName(uriPath) ?? String.Empty;
+			var codeLocation = Path.GetDirectoryName(uriPath) ?? string.Empty;
 
 			var codePath = Path.Combine(codeLocation, path);
 			if (File.Exists(codePath))

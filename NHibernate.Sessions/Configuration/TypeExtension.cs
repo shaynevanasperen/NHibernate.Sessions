@@ -1,4 +1,4 @@
-﻿using Quarks;
+﻿using System.Linq;
 
 namespace NHibernate.Sessions.Configuration
 {
@@ -6,8 +6,7 @@ namespace NHibernate.Sessions.Configuration
 	{
 		public static bool IsForSessionFactory(this System.Type type, string sessionFactoryKey)
 		{
-			var attribute = AttributeHelper.GetTypeAttribute<SessionFactoryKeyAttribute>(type);
-			return attribute == null || attribute.Key == sessionFactoryKey;
+			return type.GetInterfaces().Any(x => x.Name == sessionFactoryKey);
 		}
 	}
 }

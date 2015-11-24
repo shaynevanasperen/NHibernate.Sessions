@@ -1,6 +1,4 @@
-﻿using NHibernate.Cfg;
-
-namespace NHibernate.Sessions.Configuration
+﻿namespace NHibernate.Sessions.Configuration
 {
 	/// <summary>
 	/// Interface for providing caching capability for an <see cref="Configuration"/> object.
@@ -20,6 +18,6 @@ namespace NHibernate.Sessions.Configuration
 		/// </summary>
 		/// <param name="configKey">Key value to provide a unique name to the cached <see cref="Configuration"/>.</param>
 		/// <param name="config">Configuration object to save.</param>
-		void SaveConfiguration(string configKey, NHibernate.Cfg.Configuration config);
+		void SaveConfiguration(string configKey, Cfg.Configuration config);
 	}
 }

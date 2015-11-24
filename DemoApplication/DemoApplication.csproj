@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D41F46DC-9305-4530-B048-2293D805F6DE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DemoApplication</RootNamespace>
+    <AssemblyName>DemoApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConsoleLogExtension.cs" />
+    <Compile Include="MultipleSessionFactories\ConnectionStrings.cs" />
+    <Compile Include="MultipleSessionFactories\MultipleSessionFactoriesDemo.cs" />
+    <Compile Include="MultipleSessionFactories\Context.cs" />
+    <Compile Include="MultipleSessionFactories\Entities\TodoItem.cs" />
+    <Compile Include="MultipleSessionFactories\Entities\User.cs" />
+    <Compile Include="MultipleSessionFactories\SampleDataFactory.cs" />
+    <Compile Include="MultipleSessionFactories\MultipleSessionFactoriesScenarios.cs" />
+    <Compile Include="MultipleSessionFactories\TodoItemsService2.cs" />
+    <Compile Include="MultipleSessionFactories\TodoItemsService1.cs" />
+    <Compile Include="Quarks\AttributeHelper.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\AbbreviationAttribute.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\EscapeColumnName.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Id\Column.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Id\GeneratedByAssigned.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Property\NotNullable.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Property\StringLength.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Reference\Column.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\Reference\NotNullable.cs" />
+    <Compile Include="Quarks\FluentNHibernate\Conventions\UserType\CustomTypeEnum.cs" />
+    <Compile Include="SingleSessionFactory\SingleSessionFactoryDemo.cs" />
+    <Compile Include="SingleSessionFactory\SingleSessionFactoryScenarios.cs" />
+    <Compile Include="SingleSessionFactory\TodoItemsService.cs" />
+    <Compile Include="SingleSessionFactory\SampleDataFactory.cs" />
+    <Compile Include="SingleSessionFactory\Entities\TodoItem.cs" />
+    <Compile Include="SingleSessionFactory\Entities\User.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quarks\IdentityFieldProvider.cs" />
+    <Compile Include="Quarks\IEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NHibernate.Sessions\NHibernate.Sessions.csproj">
+      <Project>{c215518d-4d15-432b-8fae-22d78081d8e1}</Project>
+      <Name>NHibernate.Sessions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
