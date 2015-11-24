@@ -13,6 +13,7 @@ namespace NHibernate.Sessions.Tests
 	[Subject(typeof(ThreadLocalSessionContextBinder))]
 	class When_calling_hasbind : WithFakes
 	{
+		[Ignore("This is a benchmark test for manual execution")]
 		It should_be_fast = () =>
 		{
 			Console.WriteLine("Baseline: {0:N}ns", baselineTime);
@@ -24,10 +25,8 @@ namespace NHibernate.Sessions.Tests
 			Console.WriteLine("ThreadLocalSessionContextBinder is {0:N3} times slower than Baseline", threadLocalSessionContextBinderTime / baselineTime);
 			Console.WriteLine("ThreadLocalSessionContextBinder is {0:N3} times faster than Reflection", reflectionTime / threadLocalSessionContextBinderTime);
 
-			// NOTE: These thresholds are skewed in order to compensate for the test runner interfering with the timings when running the entire test suite
-			// The real values are significantly better when running this test on its own
-			threadLocalSessionContextBinderTime.ShouldBeLessThan(baselineTime * 3);
-			threadLocalSessionContextBinderTime.ShouldBeLessThan(reflectionTime / 2);
+			threadLocalSessionContextBinderTime.ShouldBeLessThan(baselineTime * 2);
+			threadLocalSessionContextBinderTime.ShouldBeLessThan(reflectionTime / 5);
 		};
 
 		It should_not_share_context_among_threads = () =>
