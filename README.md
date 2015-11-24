@@ -83,9 +83,7 @@ LazySessionFactories lazySessionFactories = ConfigureNHibernate
 LazySessions lazySessions = ConfigureNHibernate
     .ForMultipleSessionFactories(key => getConfiguration(key))
     .WithCachedConfiguration("C:\\Application\\bin\\Application.dll")
-    .WithBackgroundInitialization(BackgroundInitialization.IgnoreException,
-        x => Console.WriteLine("Background Initialization started on thread {0}", x.ManagedThreadId),
-        x => Console.WriteLine("Background Initialization completed on thread {0}", x.ManagedThreadId))
+    .WithBackgroundInitialization(BackgroundInitialization.IgnoreException) // falls back to lazy on exception
     .WithInitializedCallback(x => Console.WriteLine("{0} initialized", x.GetType().Name))
     .RegisterSessionFactory<TodoItems>() // using a type name as a key
     .RegisterSessionFactory<Users>() // same options used for second session factory, but using a different key which gets passed to the provided Func<string, Configuration>
@@ -142,9 +140,7 @@ When using background initialization, if an error occurs on the background threa
 behaviour will fall back to lazy initialization upon first use of the session factory. If you know there is a
 chance of this happening then you can choose to either ignore the exception by using the supplied no-op action
 `BackgroundInitialization.IgnoreException` as the first argument to `WithBackgroundInitialization(...)`, or you
-can handle the exception by passing in your own `Action<Exception>`. For diagnostics purposes you can also pass
-an `Action<Thread>` argument for the second and third parameter of `WithBackgroundInitialization(...)`, which are
-invoked at the start and end of the background initialization, respectively.
+can handle the exception by passing in your own `Action<Exception>`.
 
 ### Initialization callback
 
