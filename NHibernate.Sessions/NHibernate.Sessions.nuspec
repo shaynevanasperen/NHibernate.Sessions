@@ -11,6 +11,6 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A helpful library for configuring and managing NHibernate session factories and sessions</description>
 		<language>en-US</language>
-		<tags>NHibernate</tags>
+		<tags>nHibernate current session single multiple fluent configuration cache lazy background scope context callback parallel defer named</tags>
 	</metadata>
 </package>
