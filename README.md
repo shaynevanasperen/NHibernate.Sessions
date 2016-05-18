@@ -1,7 +1,6 @@
 <img src="NHibernate.Sessions.png" align="right" />
 [![Build status](https://ci.appveyor.com/api/projects/status/5g0gjfqs2sd48tja?svg=true)](https://ci.appveyor.com/project/shaynevanasperen/nhibernate-sessions)
-[![NuGet Version](http://img.shields.io/nuget/v/NHibernate.Sessions.svg?style=flat)](https://www.nuget.org/packages/NHibernate.Sessions)
-[![NuGet Downloads](http://img.shields.io/nuget/dt/NHibernate.Sessions.svg?style=flat)](https://www.nuget.org/packages/NHibernate.Sessions)
+[![NuGet](https://buildstats.info/nuget/NHibernate.Sessions)](https://www.nuget.org/packages/NHibernate.Sessions)
 NHibernate.Sessions
 ===================
 
